@@ -39,7 +39,7 @@ html {
   border: 2px solid grey;
   border-top-color: #b4a284;
   border-left-color: #b4a284;
-  background: #f6ead4;
+  background-color: #f6ead4;
   color: grey;
   font-size: 1.05rem;
   outline: none;
@@ -55,34 +55,25 @@ html {
 
 .keyboard__key:active {
   color: white;
-  background: #b4a284;
+  background-color: #b4a284;
+  border: 2px solid grey;
+}
+
+.active {
+  color: white;
+  background-color: #b4a284;
   border: 2px solid grey;
 }
 
 .keyboard__key-wide {
-  width: 12%;
+  width: 10%;
+}
+
+.keyboard__key-backspace {
+  width: 20%;
 }
 
 .keyboard__key-space {
   width: 36%;
   max-width: 500px;
-}
-
-.keyboard__key--activatable::after {
-  content: '';
-  top: 10px;
-  right: 10px;
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 50%;
-}
-
-.keyboard__key--active::after {
-  background: #b4a284;
-}
-
-.keyboard__key--dark {
-  background: rgba(0, 0, 0, 0.25);
 }

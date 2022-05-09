@@ -14,7 +14,6 @@ const Keyboard = {
 
   eventHandlers: {
     oninput: null,
-    onclose: null,
   },
 
   properties: {
@@ -28,7 +27,7 @@ const Keyboard = {
     this.elements.keysContainer = document.createElement('div');
 
     // Setup main elements
-    this.elements.main.classList.add('keyboard', 'keyboard--hidden');
+    this.elements.main.classList.add('keyboard');
     this.elements.keysContainer.classList.add('keyboard__keys');
     this.elements.keysContainer.appendChild(this._createKeys());
 
@@ -134,7 +133,7 @@ const Keyboard = {
 
       switch (key) {
         case 'Backspace':
-          keyElement.classList.add('keyboard__key-wide');
+          keyElement.classList.add('keyboard__key-backspace');
           keyElement.innerHTML = createIconHTML('Backspace');
 
           keyElement.addEventListener('click', () => {
@@ -147,11 +146,29 @@ const Keyboard = {
 
           break;
 
+        case 'Tab':
+          keyElement.classList.add('keyboard__key-wide');
+          keyElement.innerHTML = createIconHTML('Tab');
+
+          keyElement.addEventListener('click', () => {
+            this.properties.value += '\t';
+            this._triggerEvent('oninput');
+          });
+
+          break;
+
+        case 'Delete':
+          keyElement.classList.add('keyboard__key-wide');
+          keyElement.innerHTML = createIconHTML('Delete');
+
+          keyElement.addEventListener('click', () => {
+            this._triggerEvent('oninput');
+          });
+
+          break;
+
         case 'Caps Lock':
-          keyElement.classList.add(
-            'keyboard__key-wide',
-            'keyboard__key--activatable'
-          );
+          keyElement.classList.add('keyboard__key-backspace');
           keyElement.innerHTML = createIconHTML('Caps Lock');
 
           keyElement.addEventListener('click', () => {
@@ -170,6 +187,62 @@ const Keyboard = {
 
           keyElement.addEventListener('click', () => {
             this.properties.value += '\n';
+            this._triggerEvent('oninput');
+          });
+
+          break;
+
+        case 'Shift':
+        case 'Right Shift':
+          keyElement.classList.add('keyboard__key-wide');
+          keyElement.innerHTML = createIconHTML('Shift');
+
+          keyElement.addEventListener('click', () => {
+            this.properties.value += key.value.toUpperCase();
+            this._triggerEvent('oninput');
+          });
+
+          break;
+
+        case 'Up':
+          keyElement.classList.add('keyboard__key-wide');
+          keyElement.innerHTML = createIconHTML('&uarr;');
+
+          keyElement.addEventListener('click', () => {
+            this._triggerEvent('oninput');
+          });
+
+          break;
+
+        case 'Down':
+          keyElement.classList.add('keyboard__key-wide');
+          keyElement.innerHTML = createIconHTML('&darr;');
+
+          keyElement.addEventListener('click', () => {
+            this._triggerEvent('oninput');
+          });
+
+          break;
+
+        case 'Left':
+          keyElement.classList.add('keyboard__key-wide');
+          keyElement.innerHTML = createIconHTML('&larr;');
+
+          keyElement.addEventListener('click', () => {
+            this.properties.value = this.properties.value.substring(
+              0,
+              this.properties.value.length - 1
+            );
+            this._triggerEvent('oninput');
+          });
+
+          break;
+
+        case 'Right':
+          keyElement.classList.add('keyboard__key-wide');
+          keyElement.innerHTML = createIconHTML('&rarr;');
+
+          keyElement.addEventListener('click', () => {
             this._triggerEvent('oninput');
           });
 
@@ -198,6 +271,7 @@ const Keyboard = {
 
           break;
       }
+			
 
       fragment.appendChild(keyElement);
 
@@ -208,6 +282,7 @@ const Keyboard = {
 
     return fragment;
   },
+	
 
   _triggerEvent(handlerName) {
     if (typeof this.eventHandlers[handlerName] == 'function') {
