@@ -88,10 +88,36 @@ html {
   grid-column-end: span 22;
 }
 
+.Tab,
+.Backspace,
+.Enter,
+.CapsLock,
+.Delete,
+.ShiftRight,
+.ShiftLeft,
+.ArrowUp,
+.ArrowLeft,
+.ArrowDown,
+.ArrowRight,
+.ControlLeft,
+.ControlRight,
+.MetaLeft,
+.AltLeft,
+.AltRight {
+
+}
+
 .pressed {
   color: white;
   background-color: #b4a284;
   border: 2px solid grey;
+	text-transform: uppercase;
+}
+
+.pressed-mouse {
+  background-color: rgb(47, 201, 231);
+  border-radius: 15px;
+  transition: 0.3s;
 }
 
 .off {

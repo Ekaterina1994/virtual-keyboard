@@ -213,15 +213,117 @@ for (let i = 0; i < 5; i++) {
 
     let span = document.createElement('span');
     span.classList.add('ru');
-    span.classList.add('on');
+    span.classList.add('off');
     key.append(span);
     span.innerHTML = rusKeys[i][j];
 
     span = document.createElement('span');
     span.classList.add('en');
-    span.classList.add('off');
+    span.classList.add('on');
     key.append(span);
     span.innerHTML = enKeys[i][j];
   }
 }
+
+// слушатель при нажатии клавиши клавиатуры
+document.addEventListener('keydown', function (event) {
+  event.preventDefault();
+  let pressedKey = document.querySelector('.' + event.code);
+
+  if (pressedKey.classList.contains('CapsLock')) {
+    pressedKey.classList.toggle('pressed');
+  } else {
+    pressedKey.classList.add('pressed');
+  }
+
+  let pressedAll = document.querySelectorAll('.pressed');
+
+  if (pressedAll.length > 1) {
+    for (let i = 0; i < pressedAll.length; i++) {
+      if (
+        pressedAll[i].classList.contains('CapsLock') ||
+        pressedAll[i].classList.contains('ShiftLeft') ||
+        pressedAll[i].classList.contains('ShiftRight')
+      ) {
+        if (
+          !(
+            pressedKey.classList.contains('ControlLeft') ||
+            pressedKey.classList.contains('AltLeft') ||
+            pressedKey.classList.contains('MetaLeft') ||
+            pressedKey.classList.contains('Space') ||
+            pressedKey.classList.contains('ShiftLeft') ||
+            pressedKey.classList.contains('CapsLock') ||
+            pressedKey.classList.contains('Tab') ||
+            pressedKey.classList.contains('Backspace') ||
+            pressedKey.classList.contains('Delete') ||
+            pressedKey.classList.contains('Enter') ||
+            pressedKey.classList.contains('ControlRight') ||
+            pressedKey.classList.contains('AltRight') ||
+            pressedKey.classList.contains('ShiftRight')
+          )
+        ) {
+          textarea.value += pressedKey.querySelector('.on').innerHTML;
+          return;
+        }
+      }
+    }
+  } else if (
+    !(
+      pressedKey.classList.contains('ControlLeft') ||
+      pressedKey.classList.contains('AltLeft') ||
+      pressedKey.classList.contains('MetaLeft') ||
+      pressedKey.classList.contains('ShiftLeft') ||
+      pressedKey.classList.contains('CapsLock') ||
+      pressedKey.classList.contains('Tab') ||
+      pressedKey.classList.contains('Backspace') ||
+      pressedKey.classList.contains('Delete') ||
+      pressedKey.classList.contains('Enter') ||
+      pressedKey.classList.contains('ControlRight') ||
+      pressedKey.classList.contains('AltRight') ||
+      pressedKey.classList.contains('ShiftRight')
+    )
+  ) {
+    textarea.value += pressedKey.querySelector('.on').innerHTML.toLowerCase();
+  }
+
+	clickBackspace();
+
+  if (pressedKey.classList.contains('Backspace')) {
+    let data = textarea.value;
+    textarea.value = '';
+    for (let i = 0; i < data.length - 1; i++) {
+      textarea.value += data[i];
+    }
+  }
+
+
+  // Смена языка
+  let changeLang = 0;
+  for (let i = 0; i < pressedAll.length; i++) {
+    if (pressedAll[i].classList.contains('ShiftLeft')) {
+      changeLang++;
+    }
+    if (pressedAll[i].classList.contains('AltLeft')) {
+      changeLang++;
+    }
+
+    if (changeLang === 2) {
+      let on = document.querySelectorAll('.on');
+      let off = document.querySelectorAll('.off');
+
+      on.forEach((element) => {
+        element.classList.remove('on');
+        element.classList.add('off');
+      });
+
+      off.forEach((element) => {
+        element.classList.remove('off');
+        element.classList.add('on');
+      });
+    }
+  }
+});
+
+
+
 
