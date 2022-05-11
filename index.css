@@ -33,7 +33,7 @@ html {
   user-select: none;
 }
 
-.keyboard__keys {
+.keyboard_keys {
 	display: grid;
   grid-template-columns: repeat(46, 1fr);
   grid-gap: 5px;
@@ -42,11 +42,11 @@ html {
   margin-bottom: 8px;
 }
 
-.keyboard__keys:hover {
+.keyboard_keys:hover {
 	cursor: pointer;
 }
 
-.key {
+.keyboard_key {
 	grid-column-end: span 3;
   text-align: center;
   padding-top: 9px;
@@ -58,11 +58,11 @@ html {
   color: grey;
 }
 
-.key:hover {
+.keyboard_key:hover {
   border: 2px solid grey;
 }
 
-.active {
+.pressed_key {
   color: white;
   background-color: #b4a284;
   border: 2px solid grey;
@@ -114,11 +114,7 @@ html {
 	text-transform: uppercase;
 }
 
-.pressed-mouse {
-  background-color: rgb(47, 201, 231);
-  border-radius: 15px;
-  transition: 0.3s;
-}
+
 
 .off {
   display: none;
